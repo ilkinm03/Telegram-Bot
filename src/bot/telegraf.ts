@@ -29,6 +29,11 @@ bot.hears(/^[a-zA-Z]+$/i, (ctx) => {
       ctx.reply("Please provide your last name.");
       ctx.session.firstName = ctx.message.text;
       break;
+    case "LAST_NAME":
+      ctx.session.__state = "EMAIL";
+      ctx.reply("Please provide your email.");
+      ctx.session.lastName = ctx.message.text;
+      break;
   }
 });
 
