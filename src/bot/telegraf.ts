@@ -34,6 +34,23 @@ bot.hears(/^[a-zA-Z]+$/i, (ctx) => {
       ctx.reply("Please provide your email.");
       ctx.session.lastName = ctx.message.text;
       break;
+    case "EMAIL":
+      ctx.reply("Please enter a valid email address.");
+      break;
+    default:
+      break;
+  }
+});
+
+bot.hears(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, (ctx) => {
+  const { __state: state } = ctx.session;
+  ctx.session.email = state === "EMAIL" ? ctx.message.text : "";
+  ctx.reply("Please provide your phone number.")
+  ctx.session.__state = "PHONE";
+  console.log(ctx.session);
+}).on("message", (ctx) => {
+  if (!ctx.session.email) {
+    ctx.reply("Please enter a valid email address.");
   }
 });
 
