@@ -21,6 +21,16 @@ bot.start((ctx) => {
   ctx.session.__state = "FIRST_NAME";
 });
 
+bot.command("help", async (ctx) => {
+  return await ctx.reply("Here are the all commands for A Truck Bot.", Markup
+    .keyboard([
+      ["/start", "/profile", "/help"],
+    ])
+    .oneTime()
+    .resize(),
+  );
+});
+
 bot.hears(/^[a-zA-Z]+$/i, (ctx) => {
   const { __state: state } = ctx.session;
   switch (state) {
@@ -62,16 +72,5 @@ bot.hears(/^\+\d{1,3}\s?\d{9,10}$/, (ctx) => {
     ctx.reply("Please enter a valid phone number.");
   }
 })
-
-bot.command("help", async (ctx) => {
-  return await ctx.reply("Here are the all commands for A Truck Bot.", Markup
-    .keyboard([
-      ["/start", "/help"],
-    ])
-    .oneTime()
-    .resize(),
-  );
-});
-
 
 export { bot };
