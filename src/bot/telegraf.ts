@@ -1,4 +1,4 @@
-import { Telegraf, session } from "telegraf";
+import { Markup, Telegraf, session } from "telegraf";
 import { EnvConfig } from "../config/env.config";
 import { MyContext } from "./my-context.interface";
 
@@ -63,6 +63,15 @@ bot.hears(/^\+\d{1,3}\s?\d{9,10}$/, (ctx) => {
   }
 })
 
+bot.command("help", async (ctx) => {
+  return await ctx.reply("Here are the all commands for A Truck Bot.", Markup
+    .keyboard([
+      ["/start", "/help"],
+    ])
+    .oneTime()
+    .resize(),
+  );
+});
 
 
 export { bot };
