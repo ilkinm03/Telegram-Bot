@@ -54,5 +54,15 @@ bot.hears(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, (ctx) => {
   }
 });
 
+bot.hears(/^\+\d{1,3}\s?\d{9,10}$/, (ctx) => {
+  const { __state: state } = ctx.session;
+  ctx.session.phone = state === "PHONE" ? ctx.message.text : "";
+}).on("message", (ctx) => {
+  if (!ctx.session.phone) {
+    ctx.reply("Please enter a valid phone number.");
+  }
+})
+
+
 
 export { bot };
