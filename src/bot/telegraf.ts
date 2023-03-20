@@ -47,7 +47,7 @@ bot.command("profile", (ctx) => {
   `);
 });
 
-bot.hears(/^[a-zA-Z]+$/i, (ctx) => {
+bot.hears(/^\w+$/i, (ctx) => {
   const { __state: state } = ctx.session;
   switch (state) {
     case "FIRST_NAME":
@@ -60,8 +60,16 @@ bot.hears(/^[a-zA-Z]+$/i, (ctx) => {
       ctx.reply("Please provide your email.");
       ctx.session.lastName = ctx.message.text;
       break;
+    // Invalid email handling
     case "EMAIL":
       ctx.reply("Please enter a valid email address.");
+      break;
+    // Invalid phone handling
+    case "PHONE":
+      const phoneRegex = /^(\+\d{1,3})\d{9}|\d{10}$/gm;
+      if (!phoneRegex.test(ctx.message.text)) {
+        ctx.reply("Please enter a valid phone number");
+      }
       break;
     default:
       break;
@@ -73,20 +81,6 @@ bot.hears(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, (ctx) => {
   ctx.session.email = state === "EMAIL" ? ctx.message.text : "";
   ctx.reply("Please provide your phone number.")
   ctx.session.__state = "PHONE";
-  console.log(ctx.session);
-}).on("message", (ctx) => {
-  if (!ctx.session.email) {
-    ctx.reply("Please enter a valid email address.");
-  }
 });
-
-bot.hears(/^\+\d{1,3}\s?\d{9,10}$/, (ctx) => {
-  const { __state: state } = ctx.session;
-  ctx.session.phone = state === "PHONE" ? ctx.message.text : "";
-}).on("message", (ctx) => {
-  if (!ctx.session.phone) {
-    ctx.reply("Please enter a valid phone number.");
-  }
-})
 
 export { bot };
