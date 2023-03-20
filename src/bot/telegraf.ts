@@ -21,14 +21,30 @@ bot.start((ctx) => {
   ctx.session.__state = "FIRST_NAME";
 });
 
-bot.command("help", async (ctx) => {
-  return await ctx.reply("Here are the all commands for A Truck Bot.", Markup
+bot.command("help", (ctx) => {
+  return ctx.reply("Here are the all commands for A Truck Bot.", Markup
     .keyboard([
       ["/start", "/profile", "/help"],
     ])
     .oneTime()
     .resize(),
   );
+});
+
+bot.command("profile", (ctx) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+  } = ctx.session;
+  if (!firstName || !lastName || !email || !phone) {
+    return ctx.reply(
+      "You don't have an account. Please register for using this command.");
+  }
+  return ctx.reply(`
+    First name: ${firstName}\nLast name: ${lastName}\nEmail: ${email}\nPhone: ${phone}
+  `);
 });
 
 bot.hears(/^[a-zA-Z]+$/i, (ctx) => {
