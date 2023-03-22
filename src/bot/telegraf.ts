@@ -47,6 +47,23 @@ bot.command("profile", (ctx) => {
   `);
 });
 
+bot.action("profile", (ctx) => {
+  //! A handler is required to verify whether the user has registered or not.
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+  } = ctx.session;
+  return ctx.reply(`
+  Here' your account information:
+  \nFirst name: ${firstName}
+  \nLast name: ${lastName}
+  \nEmail: ${email}
+  \nPhone: ${phone}
+  `);
+});
+
 bot.hears(/^\w+$/i, (ctx) => {
   const { __state: state } = ctx.session;
   switch (state) {
@@ -70,6 +87,7 @@ bot.hears(/^\w+$/i, (ctx) => {
       if (!phoneRegex.test(ctx.message.text)) {
         ctx.reply("Please enter a valid phone number");
       } else {
+        ctx.session.__state = "POST_REGISTER"
         ctx.reply("Please select an option:", Markup.inlineKeyboard([
           Markup.button.callback("My Profile", "profile"),
           Markup.button.callback("Settings", "settings"),
@@ -84,7 +102,7 @@ bot.hears(/^\w+$/i, (ctx) => {
 bot.hears(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, (ctx) => {
   const { __state: state } = ctx.session;
   ctx.session.email = state === "EMAIL" ? ctx.message.text : "";
-  ctx.reply("Please provide your phone number.")
+  ctx.reply("Please provide your phone number.");
   ctx.session.__state = "PHONE";
 });
 
