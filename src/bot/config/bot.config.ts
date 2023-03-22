@@ -18,6 +18,10 @@ bot.telegram.setMyCommands(
       command: "profile",
       description: "Retrieve account information",
     },
+    {
+      command: "settings",
+      description: "For additional features"
+    }
   ],
 ).then();
 
