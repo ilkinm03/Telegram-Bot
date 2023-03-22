@@ -15,3 +15,10 @@ app.listen(PORT, () => {
   bot.launch();
   console.log(`Listening on port ${PORT}...`);
 });
+
+process.on("SIGINT", () => {
+  bot.stop("SIGINT");
+})
+process.on("SIGTERM", () => {
+  bot.stop("SIGTERM");
+})
