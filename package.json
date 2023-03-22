@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/ilkinm03/Telegram-Bot#readme",
   "dependencies": {
+    "@sentry/node": "^7.44.2",
+    "@sentry/tracing": "^7.44.2",
     "axios": "^1.3.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
