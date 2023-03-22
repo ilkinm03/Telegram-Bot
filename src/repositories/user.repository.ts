@@ -8,6 +8,14 @@ class UserRepository {
   async get(query?: Partial<IUser>) {
     return await UserModel.find(query);
   }
+
+  async deactivate(email: string) {
+    return await UserModel.findOneAndUpdate({ email }, {
+      $set: {
+        isActive: false,
+      },
+    });
+  }
 }
 
 export default new UserRepository();

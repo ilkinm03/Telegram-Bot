@@ -5,6 +5,7 @@ export interface IUser {
   lastName: string;
   email: string;
   phone: string;
+  isActive: boolean;
 }
 
 const userSchema = new Schema<IUser>({
@@ -24,6 +25,10 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
+  isActive: {
+    type: Boolean,
+    default: true
+  }
 });
 
 export const UserModel = model<IUser, any>("User", userSchema);

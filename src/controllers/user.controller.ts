@@ -30,6 +30,19 @@ class UserController {
       next(error);
     }
   }
+
+  public deactivateUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      await UserService.deactivateUser(req.body.email);
+      res.status(200).send();
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new UserController();
