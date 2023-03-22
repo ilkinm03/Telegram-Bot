@@ -18,6 +18,10 @@ export const emailHandler = async (ctx: MyContext<any>) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/gm;
   if (!emailRegex.test(ctx.message.text)) {
     await ctx.reply("Please enter a valid email address.");
+  }
+  const isEmailExists = await axios.get(`http://localhost:3000/user?email=${ctx.message.text}`);
+  if (isEmailExists.data.length !== 0) {
+    await ctx.reply("Email is already in use!");
   } else {
     ctx.session.email = ctx.session.__state === "EMAIL" ? ctx.message.text : "";
     ctx.session.__state = "PHONE";
@@ -37,15 +41,15 @@ export const phoneHandler = async (ctx: MyContext<any>) => {
         firstName: ctx.session.firstName,
         lastName: ctx.session.lastName,
         email: ctx.session.email,
-        phone: ctx.session.phone
-      })
+        phone: ctx.session.phone,
+      });
       await ctx.reply("Please select an option:", Markup.inlineKeyboard([
         Markup.button.callback("My Profile", "profile"),
         Markup.button.callback("Settings", "settings"),
       ]));
     }
   } catch (error) {
-    throw error
+    throw error;
   }
 
-}
+};
