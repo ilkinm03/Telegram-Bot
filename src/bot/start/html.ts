@@ -1,4 +1,4 @@
-import { MyContext } from "../my-context.interface";
+import { BotCommand, MyContext } from "../my-context.interface";
 
 export const startHTML = (ctx: MyContext): string => {
   return `
@@ -6,4 +6,12 @@ export const startHTML = (ctx: MyContext): string => {
 To use the bot you need to register first.\n
 Please provide your first name.
   `;
+};
+
+export const helpHTML = (commands: BotCommand[]): string => {
+  let text = "";
+  for (const cmd of commands) {
+    text += `/${cmd.command} - ${cmd.description}\n`;
+  }
+  return text;
 };

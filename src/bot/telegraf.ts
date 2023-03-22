@@ -16,16 +16,6 @@ bot.use(session({
 
 bot.use(start)
 
-bot.command("help", (ctx) => {
-  return ctx.reply("Here are the all commands for A Truck Bot.", Markup
-    .keyboard([
-      ["/start", "/profile", "/help"],
-    ])
-    .oneTime()
-    .resize(),
-  );
-});
-
 bot.command("profile", (ctx) => {
   const {
     firstName,

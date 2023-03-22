@@ -10,3 +10,8 @@ export interface MyContext<U extends Update = Update> extends Context<U> {
     __state: string;
   },
 }
+
+export interface BotCommand {
+  command: string;
+  description: string;
+}
