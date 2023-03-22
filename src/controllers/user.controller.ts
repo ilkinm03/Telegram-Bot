@@ -17,6 +17,19 @@ class UserController {
       next(error);
     }
   };
+
+  public getUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const user = await UserService.getUser(req.query);
+      res.status(200).send(user);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new UserController();
