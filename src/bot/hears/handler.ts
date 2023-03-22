@@ -31,7 +31,8 @@ export const phoneHandler = async (ctx: MyContext<any>) => {
     await ctx.reply("Please enter a valid phone number");
   } else {
     ctx.session.phone = ctx.message.text;
-    ctx.session.__state = "POST_REGISTER"
+    ctx.session.__state = "POST_REGISTER";
+
     await ctx.reply("Please select an option:", Markup.inlineKeyboard([
       Markup.button.callback("My Profile", "profile"),
       Markup.button.callback("Settings", "settings"),
