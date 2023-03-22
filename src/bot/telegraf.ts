@@ -1,6 +1,7 @@
 import { Markup, session } from "telegraf";
 import { bot } from "./config/bot.config";
 import { composer as start } from "./start";
+import { composer as commands } from "./commands";
 
 bot.use(session({
   defaultSession: () => {
@@ -15,22 +16,7 @@ bot.use(session({
 }));
 
 bot.use(start)
-
-bot.command("profile", (ctx) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    phone,
-  } = ctx.session;
-  if (!firstName || !lastName || !email || !phone) {
-    return ctx.reply(
-      "You don't have an account. Please register for using this command.");
-  }
-  return ctx.reply(`
-    First name: ${firstName}\nLast name: ${lastName}\nEmail: ${email}\nPhone: ${phone}
-  `);
-});
+bot.use(commands);
 
 bot.action("profile", (ctx) => {
   //! A handler is required to verify whether the user has registered or not.
