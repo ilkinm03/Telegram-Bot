@@ -1,9 +1,7 @@
-import { Markup, Telegraf, session } from "telegraf";
-import { EnvConfig } from "../config/env.config";
-import { MyContext } from "./my-context.interface";
+import { Markup, session } from "telegraf";
+import { bot } from "./config/bot.config";
 import { composer as start } from "./start";
 
-const bot = new Telegraf<MyContext>(EnvConfig.telegramBotToken as string);
 bot.use(session({
   defaultSession: () => {
     return {
