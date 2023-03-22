@@ -1,6 +1,7 @@
 import { MyContext } from "../my-context.interface";
 import { profileHTML } from "./html";
 import { Markup } from "telegraf";
+import axios from "axios";
 
 export const profileActionHandler = (ctx: MyContext<any>) => {
   const {
@@ -25,5 +26,12 @@ export const settingsActionHandler = async (ctx: MyContext<any>) => {
 };
 
 export const deleteActionHandler = async (ctx: MyContext<any>) => {
-
+  await axios.patch("http://localhost:3000/user", {
+    email: ctx.session.email,
+  });
+  ctx.session.firstName = "";
+  ctx.session.lastName = ""
+  ctx.session.email = "";
+  ctx.session.phone = "";
+  await ctx.reply("Your account has been deleted.");
 };
