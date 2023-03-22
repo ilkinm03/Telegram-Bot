@@ -93,6 +93,7 @@ bot.hears(/^\w+$/i, (ctx) => {
       if (!phoneRegex.test(ctx.message.text)) {
         ctx.reply("Please enter a valid phone number");
       } else {
+        ctx.session.phone = ctx.message.text;
         ctx.session.__state = "POST_REGISTER"
         ctx.reply("Please select an option:", Markup.inlineKeyboard([
           Markup.button.callback("My Profile", "profile"),
