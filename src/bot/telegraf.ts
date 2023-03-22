@@ -64,6 +64,12 @@ bot.action("profile", (ctx) => {
   `);
 });
 
+bot.action("settings", (ctx) => {
+  ctx.reply("Delete account", Markup.inlineKeyboard([
+    Markup.button.callback("Delete account", "delete"),
+  ]));
+})
+
 bot.hears(/^\w+$/i, (ctx) => {
   const { __state: state } = ctx.session;
   switch (state) {
