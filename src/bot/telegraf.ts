@@ -1,6 +1,7 @@
 import { Markup, Telegraf, session } from "telegraf";
 import { EnvConfig } from "../config/env.config";
 import { MyContext } from "./my-context.interface";
+import { composer as start } from "./start";
 
 const bot = new Telegraf<MyContext>(EnvConfig.telegramBotToken as string);
 bot.use(session({
@@ -15,11 +16,7 @@ bot.use(session({
   },
 }));
 
-bot.start((ctx) => {
-  ctx.reply("Welcome to A Truck Telegram Bot!");
-  ctx.reply("Please provide your first name.");
-  ctx.session.__state = "FIRST_NAME";
-});
+bot.use(start)
 
 bot.command("help", (ctx) => {
   return ctx.reply("Here are the all commands for A Truck Bot.", Markup
