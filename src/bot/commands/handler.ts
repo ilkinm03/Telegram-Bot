@@ -11,7 +11,7 @@ export const profileCommand = async (ctx: MyContext) => {
     } = ctx.session;
     if (!firstName || !lastName || !email || !phone) {
       return ctx.reply(
-        "You don't have an account. Please register for using this command.");
+        "You don't have an account. Please register for using this command. /register");
     }
     return ctx.reply(`
     First name: ${firstName}\nLast name: ${lastName}\nEmail: ${email}\nPhone: ${phone}
@@ -29,4 +29,13 @@ export const settingsCommand = async (ctx: MyContext<any>) => {
   } catch (error) {
     throw error;
   }
-}
+};
+
+export const registerCommand = async (ctx: MyContext<any>) => {
+  try {
+    await ctx.reply("Please provide you first name.");
+    ctx.session.__state = "FIRST_NAME";
+  } catch (error) {
+    throw error;
+  }
+};

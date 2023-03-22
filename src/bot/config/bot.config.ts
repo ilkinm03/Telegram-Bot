@@ -11,6 +11,10 @@ bot.telegram.setMyCommands(
       description: "Start the bot",
     },
     {
+      command: "register",
+      description: "For registration"
+    },
+    {
       command: "help",
       description: "List the commands of what you can do with the bot",
     },
